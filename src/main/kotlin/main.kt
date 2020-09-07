@@ -1,3 +1,6 @@
+import kotlin.math.ceil
+
+
 fun main() {
     print("1) ")
     println(getFee(from = FinServices.VK_PAY, transfer = 1_000_000))
@@ -51,7 +54,7 @@ fun getFee(from: FinServices, to: FinServices = FinServices.VK_PAY,
     return when (from) {
         FinServices.MASTER_CARD, FinServices.MAESTRO -> 0
         FinServices.VISA, FinServices.MIR ->
-            if (transfer > 466_666) Math.ceil(transfer * fee1 / 100).toLong() else 3500
+            if (transfer > 466_666) ceil(transfer * fee1 / 100).toLong() else 3500
         else -> {
             println("Недопустимая операция")
             -1
