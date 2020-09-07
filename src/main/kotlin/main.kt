@@ -1,6 +1,3 @@
-package ru.netology
-
-
 fun main() {
     print("1) ")
     println(getFee(from = FinServices.VK_PAY, transfer = 1_000_000))
