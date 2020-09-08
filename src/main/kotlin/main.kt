@@ -33,22 +33,29 @@ fun getFee(from: FinServices, to: FinServices = FinServices.VK_PAY,
 
     val fee1 = 0.75
 
-    if (from == FinServices.VK_PAY) {
-        if (transfer > 1_500_000) {
-            println("Превышен лимит перевода c Vk Pay. Максимальный размер перевода: 15 000 р")
-            return -1
+    when (from) {
+        FinServices.VK_PAY -> {
+            if (transfer > 1_500_000) {
+                println("Превышен лимит перевода c Vk Pay. Максимальный размер перевода: 15 000 р")
+                return -1
+            }
+            if (monthTransfers + transfer > 4_000_000) {
+                println("Превышен лимит по сумме переводов в месяц c Vk Pay. Лимит в месяц: 40 000 р")
+                return -1
+            }
         }
-        if (monthTransfers + transfer > 4_000_000) {
-            println("Превышен лимит по сумме переводов в месяц c Vk Pay. Лимит в месяц: 40 000 р")
-            return -1
+        FinServices.VISA, FinServices.MASTER_CARD, FinServices.MAESTRO, FinServices.MIR -> {
+            if (transfer > 15_000_000) {
+                println("Превышен лимит перевода по карте. Максимальный размер перевода: 150 000 р")
+                return -1
+            }
+            if (monthTransfers + transfer > 60_000_000) {
+                println("Превышен лимит по сумме переводов в месяц по карте. Лимит в месяц: 600 000 р")
+                return -1
+            }
         }
-    } else {
-        if (transfer > 15_000_000) {
-            println("Превышен лимит перевода по карте. Максимальный размер перевода: 150 000 р")
-            return -1
-        }
-        if (monthTransfers + transfer > 60_000_000) {
-            println("Превышен лимит по сумме переводов в месяц по карте. Лимит в месяц: 600 000 р")
+        else -> {
+            println("Недопустимая операция")
             return -1
         }
     }
