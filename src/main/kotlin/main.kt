@@ -26,6 +26,10 @@ enum class FinServices { MASTER_CARD, MAESTRO, VISA, MIR, VK_PAY }
 
 fun getFee(from: FinServices, to: FinServices = FinServices.VK_PAY,
            monthTransfers: Long = 0, transfer: Long): Long {
+    // Допущения:
+    // 1) Лимиты на перевод (monthTransfer) учитываются для отправителя, для получателя - нет;
+    // 2) Комиссия не вычитается при проверке лимитов.
+
     val fee1 = 0.75
 
     if (from == FinServices.VK_PAY) {
