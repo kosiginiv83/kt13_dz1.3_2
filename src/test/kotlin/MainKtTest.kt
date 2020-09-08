@@ -19,7 +19,7 @@ class MainKtTest {
             transfer = transfer
         )
 
-        assertEquals(10, result)
+        assertEquals(0, result)
     }
 
     @Test
